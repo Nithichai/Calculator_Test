@@ -6,7 +6,7 @@ class Calculator :
         self.operator = []      # Operator stack
         self.ans = 0            # Answer of equation
     
-    def calculate(self):        # Calculate answer
+    def showAns(self):          # Calculate answer and show it
         self.infix()            # Infix step
         self.postfix()          # Postfix step
         
@@ -14,7 +14,7 @@ class Calculator :
     def infix(self):            
         list_eq = self.eq.split(" ")    # Split string to list
         while(len(list_eq) != 0):       # No value in list_eq
-            data = list_eq.pop(0)       # Pop data from left
+            data = list_eq.pop(0)       # Dequeue data from left
             if data == ")" :            # Find ")"
                 op = self.operator.pop()    # Pop value from opertor stack
                 while(op != "("):           # op is not "("
@@ -24,8 +24,8 @@ class Calculator :
                     self.number.append(str_ans)     # Push to number stack
                     op = self.operator.pop()        # Pop operator stack
             elif (data == "*" or data == "/") :     # Find "*" or "/"
-                y = list_eq.pop(0)                  # Pop value from left
-                if y == "+" or y == "-" or y == "(" :   # Find "+" or "-" or "("
+                y = list_eq.pop(0)                  # Dequeue value from left
+                if y == "(" :                       # Find "("
                     self.operator.append(data)      # Push data to operator stack
                     self.operator.append(y)         # Push data to operator stack
                 else :                              # Otherwise
@@ -44,7 +44,7 @@ class Calculator :
             op = self.operator.pop()        # Pop operator stack
             y = self.number.pop()           # Pop number to y
             x = self.number.pop()           # Pop number to x
-            str_ans = self.get_str_ans(x, y, op)    # Get answer
+            str_ans = self.get_str_ans(x, y, op)    # Calculate 2 variable and get to string
             self.number.append(str_ans)     # Push answer to number stack
         self.ans = float(self.number.pop()) # Set answer
         print(self.ans)                     # Print answer
@@ -52,15 +52,15 @@ class Calculator :
     # Calculate answer            
     def get_str_ans(self, x, y, op):
         if op == "+":           # op is plus
-            return str(float(x) + float(y)) # X + Y
+            return str(float(x) + float(y)) # x + y
         elif op == "-":         # op is minus
-            return str(float(x) - float(y)) # X - Y
+            return str(float(x) - float(y)) # x - y
         elif op == "*":         # op is multiply
-            return str(float(x) * float(y)) # X * Y
+            return str(float(x) * float(y)) # x * y
         elif op == "/":         # op is divine
-            return str(float(x) / float(y)) # X / Y
+            return str(float(x) / float(y)) # x / y
         
 equation = raw_input("Enter equation : ")       # Set equation
 cal = Calculator(equation)                      # Use calculator
-cal.calculate()                                 # Calculate answer
+cal.showAns()                                   # Calculate answer and show it
         
